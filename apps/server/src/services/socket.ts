@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import Redis from "ioredis";
-
+import prismaclient from "./prisma";
+import { produceMessage } from "./kafka";
 const pub = new Redis({
   host: "caching-2d81d858-gojoxsukuna3-0aef.i.aivencloud.com",
   port: 15324,
@@ -41,10 +42,16 @@ class SocketService {
       });
     });
 
-    sub.on("message", (channel, message) => {
+    sub.on("message", async (channel, message) => {
       if (channel === "MESSAGES") {
         console.log("Broadcasting message to clients:", message);
         io.emit("event:message", message);
+        try {
+          await produceMessage(message);
+          console.log("Message sent to Kafka");
+        } catch (error) {
+          console.error("Error sending message to Kafka:", error);
+        }
       }
     });
   }
