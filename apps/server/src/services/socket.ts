@@ -3,17 +3,17 @@ import Redis from "ioredis";
 import prismaclient from "./prisma";
 import { produceMessage } from "./kafka";
 const pub = new Redis({
-  host: "caching-2d81d858-gojoxsukuna3-0aef.i.aivencloud.com",
-  port: 15324,
+  host: process.env.REDIS_HOST,
+  port: Number(process.env.REDIST_PORT),
   username: "default",
-  password: "AVNS_eBvLzdj-pWPYpkha2zs",
+  password: process.env.REDIS_PASSWORD,
 });
 
 const sub = new Redis({
-  host: "caching-2d81d858-gojoxsukuna3-0aef.i.aivencloud.com",
-  port: 15324,
+  host: process.env.REDIS_HOST,
+  port: Number(process.env.REDIST_PORT),
   username: "default",
-  password: "AVNS_eBvLzdj-pWPYpkha2zs",
+  password: process.env.REDIS_PASSWORD,
 });
 
 class SocketService {
