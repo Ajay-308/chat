@@ -2,3 +2,7 @@
   --background: black;
   --foreground: #171717;
 }
+* {
+  background: black;
+  color: white;
+}

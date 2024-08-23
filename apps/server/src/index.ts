@@ -9,7 +9,7 @@ async function init() {
   server.listen(Port, () => {
     console.log(`Server running on port ${Port}`);
   });
-  socketservice.initListner();
+  socketservice.initListener();
 }
 
 init();

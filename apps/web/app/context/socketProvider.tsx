@@ -42,16 +42,16 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const _socket = io("http://localhost:8000");
-    _socket.on("message", onMessageRec);
+    _socket.on("event:message", onMessageRec);
 
     setSocket(_socket);
 
     return () => {
-      _socket.off("message", onMessageRec);
+      _socket.off("event:message", onMessageRec);
       _socket.disconnect();
       setSocket(undefined);
     };
-  }, []);
+  }, [onMessageRec]);
 
   return (
     <SocketContext.Provider value={{ sendMessage, messages }}>
